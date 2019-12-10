@@ -1,0 +1,7 @@
+{
+  "name": "Frontend Interview Questions",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
