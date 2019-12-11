@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterEvent } from '@angular/router';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-sidenav',
@@ -8,6 +9,7 @@ import { Router, RouterEvent } from '@angular/router';
 })
 
 export class SidenavPage implements OnInit {
+  selectedPath = '';
 
   pages = [
     {
@@ -21,21 +23,32 @@ export class SidenavPage implements OnInit {
     {
       title: 'HTML',
       url: 'html'
+    },
+    {
+      title: 'JavaScript',
+      url: 'javascript'
+    },
+    {
+      title: 'Bootstrap',
+      url: 'bootstrap'
+    },
+    {
+      title: 'Angular',
+      url: 'angular'
     }
   ];
 
-  selectedPath = '';
+
 
   constructor(
     private router: Router
   ) {
     this.router.events.subscribe((event: RouterEvent) => {
-      this.selectedPath = event.url;
+      this.selectedPath = isNullOrUndefined(event.url) ? this.selectedPath : event.url;
     });
   }
 
   ngOnInit() {
   }
-
 
 }

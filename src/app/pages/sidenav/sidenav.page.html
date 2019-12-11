@@ -9,12 +9,12 @@
     <ion-content>
       <ion-list>
         <ion-menu-toggle auto-hide="false" *ngFor="let page of pages">
-          <ion-item [routerLink]="page.url" routerDirection="root" [class.active-item]="selectedPath === page.url">
+          <ion-item [routerLink]="['/menu/' + page.url]" [class.active-item]="this.selectedPath.includes(page.url)">
             {{page.title}}
           </ion-item>
         </ion-menu-toggle>
       </ion-list>
-    </ion-content> 
+    </ion-content>
   </ion-menu>
 
   <ion-router-outlet id="content-menu"></ion-router-outlet>

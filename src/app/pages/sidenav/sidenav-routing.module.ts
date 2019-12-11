@@ -20,6 +20,18 @@ const routes: Routes = [
       {
         path: 'html',
         loadChildren: () => import('../html/html.module').then(m => m.HtmlPageModule)
+      },
+      {
+        path: 'javascript',
+        loadChildren: () => import('../javascript/javascript.module').then( m => m.JavascriptPageModule)
+      },
+      {
+        path: 'bootstrap',
+        loadChildren: () => import('../bootstrap/bootstrap.module').then( m => m.BootstrapPageModule)
+      },
+      {
+        path: 'angular',
+        loadChildren: () => import('../angular/angular.module').then( m => m.AngularPageModule)
       }
     ]
   },

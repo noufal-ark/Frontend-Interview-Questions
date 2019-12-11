@@ -1,0 +1,39 @@
+.uidev_logo_col {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  padding-top: 5%;
+
+  .uidev_logo {
+    width: 30%;
+  }
+}
+.uidev_name_col {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  font-family: cursive;
+  font-size: x-large;
+  overflow: hidden;
+  text-decoration: solid;
+  color: #df2e31;
+}
+.uidev_subname_col {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  font-family: cursive;
+  font-size: xx-small;
+  color: #bb9b9b;
+}
+
+.nav_label_btn {
+  color: darkgray;
+  padding-bottom: 15%;
+  .nav_forgot_btn {
+    text-align: left;
+  }
+  .nav_member_btn {
+    text-align: right;
+  }
+}
