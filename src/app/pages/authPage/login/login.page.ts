@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { trigger, transition, animate, style } from '@angular/animations';
+import { trigger, state, transition, animate, style } from '@angular/animations';
 
 @Component({
   selector: 'app-login',
@@ -10,9 +10,13 @@ import { trigger, transition, animate, style } from '@angular/animations';
     trigger('openClose', [
       transition('* => true', [
         style({
+          height: '100px',
+          overflow: 'hidden',
           transform: 'translateY(-30%)',
         }),
         animate(2000, style({
+          height: 'auto',
+          overflow: 'hidden',
           transform: 'translateY(0%)',
         }))
       ]),
@@ -29,12 +33,12 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-  logForm(form) {
-    console.log(form.value);
-  }
-
   loginwithEmailToggle() {
     this.isLoginwithEmail = !this.isLoginwithEmail;
+  }
+
+  notMemebr() {
+    this.navCtrl.navigateForward('/register');
   }
 
 }
