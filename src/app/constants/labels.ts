@@ -10,5 +10,10 @@ export const Labels = {
         home: 'Home',
         css: 'CSS',
         html: 'HTML'
+    },
+    errorMsg: {
+        invalidEmail: 'Enter a valid email id',
+        invalidPassword: 'Password length greater than 5',
+        mustMatch: 'Password must match with confirm password'
     }
 };
