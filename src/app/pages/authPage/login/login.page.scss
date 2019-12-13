@@ -30,12 +30,14 @@
 .nav_label_btn {
   color: darkgray;
   padding-bottom: 15%;
-  text-transform: capitalize;
-  font-size:0.5rem ;
   .nav_forgot_btn {
     text-align: left;
   }
   .nav_member_btn {
     text-align: right;
+  }
+  ion-button {
+    text-transform: initial;
+    font-size: 0.8rem;
   }
 }
