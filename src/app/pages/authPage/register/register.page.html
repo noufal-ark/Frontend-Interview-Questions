@@ -82,7 +82,7 @@
 
     <ion-row>
       <ion-col>
-        <ion-button expand="block" color="primary">
+        <ion-button expand="block" color="primary" (click)="signWithFacebook()">
           Register with Facebook
           <ion-icon slot="start" name="logo-facebook"></ion-icon>
         </ion-button>
@@ -91,7 +91,7 @@
 
     <ion-row>
       <ion-col>
-        <ion-button expand="block" color="danger">
+        <ion-button expand="block" color="danger" (click)="signWithGoogle()">
           Register with Google
           <ion-icon slot="start" name="logo-google"></ion-icon>
         </ion-button>

@@ -5,6 +5,7 @@ import { Labels } from 'src/app/constants/labels';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoaderService } from 'src/app/_service/loader.service';
+import { auth } from 'firebase';
 
 @Component({
   selector: 'app-login',
@@ -93,8 +94,42 @@ export class LoginPage implements OnInit {
       }
     });
   }
+
   notMemebr() {
     this.navCtrl.navigateForward('/register');
+  }
+
+  signWithGoogle() {
+    this.alertErrorMessage = null;
+    this.loader.present('Connecting to server...');
+    // this.loader.present('Authenticating your credentials...');
+    this.ngAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(authResponse => {
+      console.log('authResponse : ', authResponse);
+    }).catch(async errorResponse => {
+      console.log('authResponse : ', errorResponse);
+      this.alertErrorMessage = errorResponse.message;
+    }).finally(() => {
+      if (this.loader.isLoading) {
+        this.loader.dismiss();
+      }
+    });
+  }
+
+
+  signWithFacebook() {
+    this.alertErrorMessage = null;
+    this.loader.present('Connecting to server...');
+    // this.loader.present('Authenticating your credentials...');
+    this.ngAuth.auth.signInWithPopup(new auth.FacebookAuthProvider()).then(authResponse => {
+      console.log('authResponse : ', authResponse);
+    }).catch(async errorResponse => {
+      console.log('authResponse : ', errorResponse);
+      this.alertErrorMessage = errorResponse.message;
+    }).finally(() => {
+      if (this.loader.isLoading) {
+        this.loader.dismiss();
+      }
+    });
   }
 
 }

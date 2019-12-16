@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MustMatch } from 'src/app/_helper/must-match.validator';
 import { Labels } from 'src/app/constants/labels';
 import { LoaderService } from 'src/app/_service/loader.service';
+import { auth } from 'firebase';
 
 @Component({
   selector: 'app-register',
@@ -89,6 +90,40 @@ export class RegisterPage implements OnInit {
 
   registerEmailAndPassword(email, password) {
     this.ngAuth.auth.createUserWithEmailAndPassword(email, password).then(authResponse => {
+      console.log('authResponse : ', authResponse);
+    }).catch(async errorResponse => {
+      console.log('authResponse : ', errorResponse);
+      this.alertErrorMessage = errorResponse.message;
+    }).finally(() => {
+      if (this.loader.isLoading) {
+        this.loader.dismiss();
+      }
+    });
+  }
+
+
+  signWithGoogle() {
+    this.alertErrorMessage = null;
+    this.loader.present('Connecting to server...');
+    // this.loader.present('Authenticating your credentials...');
+    this.ngAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(authResponse => {
+      console.log('authResponse : ', authResponse);
+    }).catch(async errorResponse => {
+      console.log('authResponse : ', errorResponse);
+      this.alertErrorMessage = errorResponse.message;
+    }).finally(() => {
+      if (this.loader.isLoading) {
+        this.loader.dismiss();
+      }
+    });
+  }
+
+
+  signWithFacebook() {
+    this.alertErrorMessage = null;
+    this.loader.present('Connecting to server...');
+    // this.loader.present('Authenticating your credentials...');
+    this.ngAuth.auth.signInWithPopup(new auth.FacebookAuthProvider()).then(authResponse => {
       console.log('authResponse : ', authResponse);
     }).catch(async errorResponse => {
       console.log('authResponse : ', errorResponse);
