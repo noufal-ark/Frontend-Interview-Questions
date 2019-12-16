@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, LoadingController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -32,6 +32,7 @@ export class RegisterPage implements OnInit {
   errMsg = Labels.errorMsg;
   isRegisterwithEmail = false;
   regLoading = null;
+  alertErrorMessage = null;
 
   registerForm: FormGroup;
   submitted = false;
@@ -40,7 +41,8 @@ export class RegisterPage implements OnInit {
     public navCtrl: NavController,
     private ngAuth: AngularFireAuth,
     private formBuilder: FormBuilder,
-    private loader: LoaderService
+    private loader: LoaderService,
+    public alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -68,8 +70,7 @@ export class RegisterPage implements OnInit {
 
     console.log('register form ', this.registerForm.value);
     this.submitted = true;
-
-    // stop here if form is invalid
+    this.alertErrorMessage = null;
     if (this.registerForm.invalid) {
       if (this.loader.isLoading) {
         this.loader.dismiss();
@@ -80,7 +81,6 @@ export class RegisterPage implements OnInit {
       this.loader.dismiss();
     }
 
-
     this.loader.present('Registering your credentials...');
 
     const registerParams = this.registerForm.value;
@@ -90,12 +90,10 @@ export class RegisterPage implements OnInit {
   registerEmailAndPassword(email, password) {
     this.ngAuth.auth.createUserWithEmailAndPassword(email, password).then(authResponse => {
       console.log('authResponse : ', authResponse);
-
-    }).catch(errorResponse => {
-
+    }).catch(async errorResponse => {
       console.log('authResponse : ', errorResponse);
+      this.alertErrorMessage = errorResponse.message;
     }).finally(() => {
-
       if (this.loader.isLoading) {
         this.loader.dismiss();
       }
