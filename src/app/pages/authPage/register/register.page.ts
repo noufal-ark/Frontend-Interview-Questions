@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
 import { trigger, transition, style, animate } from '@angular/animations';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MustMatch } from 'src/app/_helper/must-match.validator';
 import { Labels } from 'src/app/constants/labels';
 import { LoaderService } from 'src/app/_service/loader.service';
-import { auth } from 'firebase';
+import { User } from 'firebase';
+import { AuthenticationService } from 'src/app/_service/authentication.service';
 
 @Component({
   selector: 'app-register',
@@ -34,13 +34,14 @@ export class RegisterPage implements OnInit {
   isRegisterwithEmail = false;
   regLoading = null;
   alertErrorMessage = null;
+  user: User;
 
   registerForm: FormGroup;
   submitted = false;
 
   constructor(
     public navCtrl: NavController,
-    private ngAuth: AngularFireAuth,
+    private authService: AuthenticationService,
     private formBuilder: FormBuilder,
     private loader: LoaderService,
     public alertController: AlertController
@@ -61,9 +62,11 @@ export class RegisterPage implements OnInit {
   registerwithEmailToggle() {
     this.isRegisterwithEmail = !this.isRegisterwithEmail;
   }
-
   alreadyMember() {
     this.navCtrl.navigateRoot('/login');
+  }
+  redirectToDashboard() {
+    this.navCtrl.navigateForward('');
   }
 
   onSubmit() {
@@ -84,13 +87,14 @@ export class RegisterPage implements OnInit {
 
     this.loader.present('Registering your credentials...');
 
-    const registerParams = this.registerForm.value;
-    this.registerEmailAndPassword(registerParams.email, registerParams.password);
+    this.user = this.registerForm.value;
+    this.registerEmailAndPassword();
   }
 
-  registerEmailAndPassword(email, password) {
-    this.ngAuth.auth.createUserWithEmailAndPassword(email, password).then(authResponse => {
+  registerEmailAndPassword() {
+    this.authService.signUpRegular(this.user).then(authResponse => {
       console.log('authResponse : ', authResponse);
+      this.redirectToDashboard();
     }).catch(async errorResponse => {
       console.log('authResponse : ', errorResponse);
       this.alertErrorMessage = errorResponse.message;
@@ -104,10 +108,10 @@ export class RegisterPage implements OnInit {
 
   signWithGoogle() {
     this.alertErrorMessage = null;
-    this.loader.present('Connecting to server...');
-    // this.loader.present('Authenticating your credentials...');
-    this.ngAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(authResponse => {
+    this.loader.present('Authenticating your credentials...');
+    this.authService.signInWithPopup(Labels.provider.google).then(authResponse => {
       console.log('authResponse : ', authResponse);
+      this.redirectToDashboard();
     }).catch(async errorResponse => {
       console.log('authResponse : ', errorResponse);
       this.alertErrorMessage = errorResponse.message;
@@ -121,10 +125,10 @@ export class RegisterPage implements OnInit {
 
   signWithFacebook() {
     this.alertErrorMessage = null;
-    this.loader.present('Connecting to server...');
-    // this.loader.present('Authenticating your credentials...');
-    this.ngAuth.auth.signInWithPopup(new auth.FacebookAuthProvider()).then(authResponse => {
+    this.loader.present('Authenticating your credentials...');
+    this.authService.signInWithPopup(Labels.provider.facebook).then(authResponse => {
       console.log('authResponse : ', authResponse);
+      this.redirectToDashboard();
     }).catch(async errorResponse => {
       console.log('authResponse : ', errorResponse);
       this.alertErrorMessage = errorResponse.message;

@@ -13,8 +13,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from 'src/environments/environment';
 import { LoaderService } from './_service/loader.service';
+import { AuthenticationService } from './_service/authentication.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +26,7 @@ import { LoaderService } from './_service/loader.service';
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireAuthModule,
+    AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     ReactiveFormsModule
   ],
@@ -31,6 +34,7 @@ import { LoaderService } from './_service/loader.service';
     StatusBar,
     SplashScreen,
     AuthGuardService,
+    AuthenticationService,
     LoaderService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

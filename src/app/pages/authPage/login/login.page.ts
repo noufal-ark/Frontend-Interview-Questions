@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
 import { trigger, state, transition, animate, style } from '@angular/animations';
 import { Labels } from 'src/app/constants/labels';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoaderService } from 'src/app/_service/loader.service';
-import { auth } from 'firebase';
+import { auth, User } from 'firebase';
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/_service/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -33,18 +34,18 @@ export class LoginPage implements OnInit {
   errMsg = Labels.errorMsg;
   loginLoading = null;
   alertErrorMessage = null;
+  returnUrl: string;
+  user: User;
 
   loginForm: FormGroup;
   submitted = false;
   constructor(
     public navCtrl: NavController,
-    private ngAuth: AngularFireAuth,
+    private authService: AuthenticationService,
     private formBuilder: FormBuilder,
     private loader: LoaderService,
-    public alertController: AlertController
-  ) {
-
-  }
+    public alertController: AlertController,
+  ) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -78,13 +79,16 @@ export class LoginPage implements OnInit {
 
     this.loader.present('Authenticating your credentials...');
 
-    const loginParams = this.loginForm.value;
-    this.loginEmailAndPassword(loginParams.email, loginParams.password);
+    this.user = this.loginForm.value;
+    this.loginEmailAndPassword();
   }
 
-  loginEmailAndPassword(email, password) {
-    this.ngAuth.auth.signInWithEmailAndPassword(email, password).then(authResponse => {
+  loginEmailAndPassword() {
+    console.log('loginEmailAndPassword ==> ', this.user);
+
+    this.authService.signInRegular(this.user).then(authResponse => {
       console.log('authResponse : ', authResponse);
+      this.redirectToDashboard();
     }).catch(async errorResponse => {
       console.log('authResponse : ', errorResponse);
       this.alertErrorMessage = errorResponse.message;
@@ -98,13 +102,19 @@ export class LoginPage implements OnInit {
   notMemebr() {
     this.navCtrl.navigateForward('/register');
   }
+  forgotPassword() {
+    this.navCtrl.navigateForward('/forgot');
+  }
+  redirectToDashboard() {
+    this.navCtrl.navigateRoot(['/']);
+  }
 
   signWithGoogle() {
     this.alertErrorMessage = null;
-    this.loader.present('Connecting to server...');
-    // this.loader.present('Authenticating your credentials...');
-    this.ngAuth.auth.signInWithPopup(new auth.GoogleAuthProvider()).then(authResponse => {
+    this.loader.present('Authenticating your credentials...');
+    this.authService.signInWithPopup(Labels.provider.google).then(authResponse => {
       console.log('authResponse : ', authResponse);
+      this.redirectToDashboard();
     }).catch(async errorResponse => {
       console.log('authResponse : ', errorResponse);
       this.alertErrorMessage = errorResponse.message;
@@ -118,10 +128,10 @@ export class LoginPage implements OnInit {
 
   signWithFacebook() {
     this.alertErrorMessage = null;
-    this.loader.present('Connecting to server...');
-    // this.loader.present('Authenticating your credentials...');
-    this.ngAuth.auth.signInWithPopup(new auth.FacebookAuthProvider()).then(authResponse => {
+    this.loader.present('Authenticating your credentials...');
+    this.authService.signInWithPopup(Labels.provider.facebook).then(authResponse => {
       console.log('authResponse : ', authResponse);
+      this.redirectToDashboard();
     }).catch(async errorResponse => {
       console.log('authResponse : ', errorResponse);
       this.alertErrorMessage = errorResponse.message;

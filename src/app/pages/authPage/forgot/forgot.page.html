@@ -1,9 +1,67 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>forgot</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <div class="ion-padding" id="cloud-layer">
+
+    <ion-row>
+      <ion-col class="uidev_logo_col">
+        <img class="uidev_logo" src="assets/images/uidev_icon.svg" />
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="uidev_name_col">
+        <ion-label position="floating">UI Dev</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col class="uidev_subname_col">
+        <ion-label position="floating">Interview Questions and Answers</ion-label>
+      </ion-col>
+    </ion-row>
+    <!-- to print error message -->
+    <div class="alert alert-danger" *ngIf="alertErrorMessage">
+      <strong>Authentication failed!</strong> {{alertErrorMessage}}.
+    </div>
+    <!-- to print success message -->
+    <div class="alert alert-success" *ngIf="alertSuccessMessage">
+      <strong>Reset email sent!</strong> {{alertSuccessMessage}}.
+    </div>
+    <form [formGroup]="forgotForm" *ngIf="!alertSuccessMessage">
+      <ion-row>
+        <ion-col>
+          <ion-list>
+            <ion-item>
+              <ion-label position="floating">Email</ion-label>
+              <ion-input formControlName="email" type="email"></ion-input>
+            </ion-item>
+            <div class="error-input" *ngIf="!f.email.valid && (f.email.dirty|| submitted)">
+              {{errMsg.invalidEmail}}
+            </div>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <ion-button expand="block" color="success" (click)="onSubmit()">reset password</ion-button>
+        </ion-col>
+      </ion-row>
+
+    </form>
+
+
+    <ion-row *ngIf="alertSuccessMessage">
+      <ion-col>
+        <ion-button expand="block" color="success" (click)="alreadyMember()">go to login</ion-button>
+      </ion-col>
+    </ion-row>
+
+    <ion-row class="nav_label_btn">
+      <ion-col class="nav_forgot_btn">
+        <ion-button fill="clear" color="medium" (click)="notMemebr()">Not a member yet?</ion-button>
+      </ion-col>
+      <ion-col class="nav_member_btn">
+        <ion-button fill="clear" color="medium" (click)="alreadyMember()">Already member?</ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
 
 </ion-content>

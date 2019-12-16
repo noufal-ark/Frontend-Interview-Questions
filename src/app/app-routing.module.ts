@@ -9,6 +9,10 @@ const routes: Routes = [
     canActivate: [AuthGuardService]
   },
   {
+    path: 'dashboard',
+    loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardPageModule),
+  },
+  {
     path: 'login',
     loadChildren: () => import('./pages/authPage/login/login.module').then(m => m.LoginPageModule)
   },
