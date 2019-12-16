@@ -4,8 +4,7 @@ import { trigger, state, transition, animate, style } from '@angular/animations'
 import { Labels } from 'src/app/constants/labels';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoaderService } from 'src/app/_service/loader.service';
-import { auth, User } from 'firebase';
-import { Router } from '@angular/router';
+import { User } from 'firebase';
 import { AuthenticationService } from 'src/app/_service/authentication.service';
 
 @Component({
@@ -105,7 +104,7 @@ export class LoginPage implements OnInit {
   forgotPassword() {
     this.navCtrl.navigateForward('/forgot');
   }
-  redirectToDashboard() {
+  redirectToDashboard() {    
     this.navCtrl.navigateRoot(['/']);
   }
 

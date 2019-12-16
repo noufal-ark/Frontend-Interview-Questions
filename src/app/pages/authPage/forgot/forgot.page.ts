@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Labels } from 'src/app/constants/labels';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NavController, AlertController } from '@ionic/angular';
-import { AngularFireAuth } from '@angular/fire/auth';
 import { LoaderService } from 'src/app/_service/loader.service';
+import { AuthenticationService } from 'src/app/_service/authentication.service';
 
 @Component({
   selector: 'app-forgot',
@@ -22,7 +22,7 @@ export class ForgotPage implements OnInit {
 
   constructor(
     public navCtrl: NavController,
-    private ngAuth: AngularFireAuth,
+    private authService: AuthenticationService,
     private formBuilder: FormBuilder,
     private loader: LoaderService,
     public alertController: AlertController
@@ -68,7 +68,7 @@ export class ForgotPage implements OnInit {
   }
 
   resetEmail(email) {
-    this.ngAuth.auth.sendPasswordResetEmail(email).then(authResponse => {
+    this.authService.sendResetEmail(email).then(authResponse => {
       console.log('authResponse : ', authResponse);
       this.alertSuccessMessage = Labels.forgotMsg.validEmail + email + Labels.forgotMsg.validEmail2;
 

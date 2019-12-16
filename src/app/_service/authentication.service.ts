@@ -79,4 +79,8 @@ export class AuthenticationService {
       })
   }
 
+  sendResetEmail(email){
+    return this.afAuth.auth.sendPasswordResetEmail(email);
+  }
+
 }
