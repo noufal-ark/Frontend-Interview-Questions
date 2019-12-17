@@ -3,15 +3,16 @@ import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from
 import { AuthenticationService } from './authentication.service';
 import { Observable } from 'rxjs';
 import { map, take, tap } from 'rxjs/operators';
+import { NavController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuardService implements CanActivate {
-  isLogged: boolean = false;
+  isLogged = false;
 
   constructor(
-    private router: Router,
+    public navCtrl: NavController,
     private authService: AuthenticationService,
   ) { }
 
@@ -23,11 +24,11 @@ export class AuthGuardService implements CanActivate {
       map(user => !!user),
       tap(logged => {
         if (!logged) {
-          console.log("User not Authenticated")
-          this.router.navigate(['/login'])
+          console.log('User not Authenticated');
+          this.navCtrl.navigateRoot(['/login']);
         }
       })
-    )
+    );
   }
 
 }

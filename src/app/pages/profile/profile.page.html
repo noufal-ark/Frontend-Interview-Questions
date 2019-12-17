@@ -1,0 +1,69 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-button class="button-clear button-dark" slot="end" (click)="close()">
+      <ion-icon name="close-circle"></ion-icon>
+    </ion-button>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content class="ion-padding">
+  <form [formGroup]="profileForm">
+
+    <div class="avatar-img">
+      <div class="image-center">
+        <ion-img name="profilepic" [src]="profileURL"></ion-img>
+      </div>
+    </div>
+
+    <ion-row>
+
+      <ion-col>
+
+        <ion-list>
+
+          <ion-item>
+            <ion-label position="floating">Firstname</ion-label>
+            <ion-input formControlName="firstname" type="text"></ion-input>
+          </ion-item>
+          <div class="error-input" *ngIf="!f.firstname.valid && (f.firstname.dirty|| submitted)">
+            {{errMsg.invalidFirstname}}
+          </div>
+
+          <ion-item>
+            <ion-label position="floating">Lastname</ion-label>
+            <ion-input formControlName="lastname" type="text"></ion-input>
+          </ion-item>
+          <div class="error-input" *ngIf="!f.lastname.valid && (f.lastname.dirty|| submitted)">
+            {{errMsg.invalidLastname}}
+          </div>
+
+          <ion-item>
+            <ion-label position="floating">Phone number</ion-label>
+            <ion-input formControlName="phone" type="tel"></ion-input>
+          </ion-item>
+          <div class="error-input" *ngIf="!f.phone.valid && (f.phone.dirty|| submitted)">
+            {{errMsg.invalidPhone}}
+          </div>
+
+          <ion-item>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input formControlName="email" type="email"></ion-input>
+          </ion-item>
+          <div class="error-input" *ngIf="!f.email.valid && (f.email.dirty|| submitted)">
+            {{errMsg.invalidEmail}}
+          </div>
+
+        </ion-list>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" color="success" (click)="onSubmit()">Update Profile</ion-button>
+      </ion-col>
+    </ion-row>
+
+  </form>
+
+</ion-content>

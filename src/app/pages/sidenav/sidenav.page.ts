@@ -40,6 +40,8 @@ export class SidenavPage implements OnInit {
     }
   ];
 
+  profURL = 'https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y';
+  profName = 'Noufal';
   constructor(
     private router: Router,
     private authService: AuthenticationService,
@@ -57,6 +59,8 @@ export class SidenavPage implements OnInit {
     this.loader.present('Authenticating your credentials...');
     console.log('logout user');
     this.authService.SignOut();
-    this.loader.dismiss();
+    if (this.loader.isLoading) {
+      this.loader.dismiss();
+    }
   }
 }

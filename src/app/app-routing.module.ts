@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
-    loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardPageModule),
+    loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardPageModule)
   },
   {
     path: 'login',
@@ -26,8 +26,14 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: ''
+    redirectTo: '',
+    pathMatch: 'full'
+  },
+  {
+    path: 'profile',
+    loadChildren: () => import('./pages/profile/profile.module').then( m => m.ProfilePageModule)
   }
+
 ];
 @NgModule({
   imports: [

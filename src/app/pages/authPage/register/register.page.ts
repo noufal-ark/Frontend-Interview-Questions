@@ -94,6 +94,7 @@ export class RegisterPage implements OnInit {
   registerEmailAndPassword() {
     this.authService.signUpRegular(this.user).then(authResponse => {
       console.log('authResponse : ', authResponse);
+      this.authService.storeIntoLocal(authResponse);
       this.redirectToDashboard();
     }).catch(async errorResponse => {
       console.log('authResponse : ', errorResponse);
@@ -111,6 +112,7 @@ export class RegisterPage implements OnInit {
     this.loader.present('Authenticating your credentials...');
     this.authService.signInWithPopup(Labels.provider.google).then(authResponse => {
       console.log('authResponse : ', authResponse);
+      this.authService.storeIntoLocal(authResponse);
       this.redirectToDashboard();
     }).catch(async errorResponse => {
       console.log('authResponse : ', errorResponse);
@@ -128,6 +130,7 @@ export class RegisterPage implements OnInit {
     this.loader.present('Authenticating your credentials...');
     this.authService.signInWithPopup(Labels.provider.facebook).then(authResponse => {
       console.log('authResponse : ', authResponse);
+      this.authService.storeIntoLocal(authResponse);
       this.redirectToDashboard();
     }).catch(async errorResponse => {
       console.log('authResponse : ', errorResponse);

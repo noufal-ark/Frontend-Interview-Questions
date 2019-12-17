@@ -14,7 +14,10 @@ export const Labels = {
     errorMsg: {
         invalidEmail: 'Enter a valid email id',
         invalidPassword: 'Password length greater than 5',
-        mustMatch: 'Password must match with confirm password'
+        invalidFirstname: 'Enter a valid First name',
+        invalidLastname: 'Enter a valid Last name',
+        invalidPhone: 'Enter a valid Phone number (+919999999999)',
+        mustMatch: 'Password must match with confirm password',
     },
     forgotMsg: {
         validEmail: 'Password reset email send to your email id : ',
@@ -23,5 +26,8 @@ export const Labels = {
     provider: {
         google: 'google',
         facebook: 'facebook'
+    },
+    authMsg: {
+        signout: 'User signed Out successfully'
     }
 };

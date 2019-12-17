@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { auth } from 'firebase';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
-import {  map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { AngularFireDatabase } from '@angular/fire/database';
+import { Labels } from '../constants/labels';
+import { NavController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +14,12 @@ export class AuthenticationService {
 
   error: string;
   emailSent = false;
-  //user instance
   user = this.afAuth.authState.pipe(
     map(authState => {
       if (!authState) {
         return null;
       } else {
-        return authState.email
+        return authState.email;
       }
     })
   );
@@ -27,7 +28,7 @@ export class AuthenticationService {
   constructor(
     private afAuth: AngularFireAuth,
     private afDB: AngularFireDatabase,
-    private router: Router
+    public navCtrl: NavController
   ) { }
   /* Sign up */
   signUpRegular(user) {
@@ -44,7 +45,7 @@ export class AuthenticationService {
 
     return this.afAuth
       .auth
-      .signInWithEmailAndPassword(user.email, user.password)
+      .signInWithEmailAndPassword(user.email, user.password);
   }
 
   GoogleProvider() {
@@ -72,15 +73,36 @@ export class AuthenticationService {
       .auth
       .signOut()
       .then(() => {
-        console.log("user signed Out successfully");
-        this.router.navigate(["/login"]);
+        console.log(Labels.authMsg.signout);
+        this.navCtrl.navigateRoot(['/login']);
       }).catch((err) => {
         console.log(err);
-      })
+      });
   }
 
-  sendResetEmail(email){
+  sendResetEmail(email) {
     return this.afAuth.auth.sendPasswordResetEmail(email);
   }
 
+  profileRef() {
+    const uid = this.afAuth.auth.currentUser.uid;
+    console.log('uid : ', uid);
+    // return this.afDB.object(`users/${uid}`);
+    return this.afDB.database.ref(`users/${uid}`);
+  }
+
+  storeIntoLocal(authResp) {
+    const res = authResp.additionalUserInfo;
+    const savingDetails = {
+      firstname: res.profile.given_name,
+      lastname: res.profile.family_name,
+      profilepic: res.profile.picture,
+      email: res.profile.email,
+      phone: res.profile.phoneNumber,
+      providerId: res.profile.providerId
+    };
+    console.log('savingDetails : ', savingDetails);
+
+    localStorage.setItem('loginDetails', JSON.stringify(savingDetails));
+  }
 }

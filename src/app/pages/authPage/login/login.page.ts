@@ -87,6 +87,7 @@ export class LoginPage implements OnInit {
 
     this.authService.signInRegular(this.user).then(authResponse => {
       console.log('authResponse : ', authResponse);
+      this.authService.storeIntoLocal(authResponse);
       this.redirectToDashboard();
     }).catch(async errorResponse => {
       console.log('authResponse : ', errorResponse);
@@ -104,8 +105,8 @@ export class LoginPage implements OnInit {
   forgotPassword() {
     this.navCtrl.navigateForward('/forgot');
   }
-  redirectToDashboard() {    
-    this.navCtrl.navigateRoot(['/']);
+  redirectToDashboard() {
+    this.navCtrl.navigateRoot(['']);
   }
 
   signWithGoogle() {
@@ -113,6 +114,7 @@ export class LoginPage implements OnInit {
     this.loader.present('Authenticating your credentials...');
     this.authService.signInWithPopup(Labels.provider.google).then(authResponse => {
       console.log('authResponse : ', authResponse);
+      this.authService.storeIntoLocal(authResponse);
       this.redirectToDashboard();
     }).catch(async errorResponse => {
       console.log('authResponse : ', errorResponse);
@@ -130,6 +132,7 @@ export class LoginPage implements OnInit {
     this.loader.present('Authenticating your credentials...');
     this.authService.signInWithPopup(Labels.provider.facebook).then(authResponse => {
       console.log('authResponse : ', authResponse);
+      this.authService.storeIntoLocal(authResponse);
       this.redirectToDashboard();
     }).catch(async errorResponse => {
       console.log('authResponse : ', errorResponse);
