@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/_service/authentication.service';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { ProfilePage } from '../profile/profile.page';
 
 @Component({
@@ -12,7 +12,8 @@ export class DashboardPage implements OnInit {
 
   constructor(
     private authService: AuthenticationService,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    public navCtrl: NavController
   ) { }
 
   ngOnInit() {
@@ -46,4 +47,9 @@ export class DashboardPage implements OnInit {
     return await modal.present();
   }
 
+  navTo(path) {
+    console.log('path : ',path);
+    
+    this.navCtrl.navigateForward(['menu/' + path])
+  }
 }
