@@ -61,6 +61,7 @@
     <ion-row>
       <ion-col>
         <ion-button expand="block" color="success" (click)="onSubmit()">Update Profile</ion-button>
+        <ion-button expand="block" color="medium" *ngIf="editProf" (click)="close()">close</ion-button>
       </ion-col>
     </ion-row>
 

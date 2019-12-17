@@ -1,3 +1,14 @@
 .active-item{
     border-left: 8px solid var(--ion-color-primary);
 }
+.email_label{
+    text-transform: lowercase;
+    font-style: italic;
+    color: #757070;
+}
+.title_label{
+    text-transform: uppercase;
+    text-shadow: 1px 1px;
+    font-weight: bold;
+    color: #3a2b2b;
+}

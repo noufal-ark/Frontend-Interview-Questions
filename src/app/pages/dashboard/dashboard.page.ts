@@ -17,14 +17,6 @@ export class DashboardPage implements OnInit {
 
   ngOnInit() {
     console.log('Hi iám dashboard');
-    // this.authService.profileRef().set(
-    //   {
-    //     firstName: 'Muhammed',
-    //     lastName: 'Noufal',
-    //     email: 'noufal.arg@gmail.com',
-    //     phone: '+91 9995959746',
-    //   }
-    // );
     this.checkUSerExist();
   }
 
@@ -47,16 +39,11 @@ export class DashboardPage implements OnInit {
   async presentModal() {
     const modal = await this.modalCtrl.create({
       component: ProfilePage,
-      backdropDismiss: true
+      componentProps: {
+        edit: false
+      }
     });
     return await modal.present();
   }
 
-  dismiss() {
-    // using the injected ModalController this page
-    // can "dismiss" itself and optionally pass back data
-    this.modalCtrl.dismiss({
-      dismissed: true
-    });
-  }
 }

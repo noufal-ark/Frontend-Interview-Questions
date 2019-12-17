@@ -6,11 +6,13 @@ import { map } from 'rxjs/operators';
 import { AngularFireDatabase } from '@angular/fire/database';
 import { Labels } from '../constants/labels';
 import { NavController } from '@ionic/angular';
+import { isNullOrUndefined } from 'util';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
+  profileURL = 'assets/images/uidev_male.png';
 
   error: string;
   emailSent = false;
@@ -92,17 +94,27 @@ export class AuthenticationService {
   }
 
   storeIntoLocal(authResp) {
+    console.log('authResp : ', authResp);
+
     const res = authResp.additionalUserInfo;
     const savingDetails = {
-      firstname: res.profile.given_name,
-      lastname: res.profile.family_name,
-      profilepic: res.profile.picture,
-      email: res.profile.email,
-      phone: res.profile.phoneNumber,
-      providerId: res.profile.providerId
+      firstname: isNullOrUndefined(res.profile) ? null : res.profile.given_name,
+      lastname: isNullOrUndefined(res.profile) ? null : res.profile.family_name,
+      profilepic: isNullOrUndefined(res.profile) ? null : res.profile.picture,
+      email: isNullOrUndefined(res.profile) ? authResp.user.email : res.profile.email,
+      phone: isNullOrUndefined(res.profile) ? null : res.profile.phoneNumber,
+      providerId: res.providerId
     };
     console.log('savingDetails : ', savingDetails);
 
     localStorage.setItem('loginDetails', JSON.stringify(savingDetails));
+  }
+
+  checkProfileImage(url) {
+    return url !== this.profileURL ? url : null;
+  }
+
+  setProfileImage(url) {
+    return isNullOrUndefined(url) ? this.profileURL : url;
   }
 }

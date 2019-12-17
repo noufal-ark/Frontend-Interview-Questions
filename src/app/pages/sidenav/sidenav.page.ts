@@ -3,6 +3,8 @@ import { Router, RouterEvent } from '@angular/router';
 import { isNullOrUndefined } from 'util';
 import { LoaderService } from 'src/app/_service/loader.service';
 import { AuthenticationService } from 'src/app/_service/authentication.service';
+import { ModalController } from '@ionic/angular';
+import { ProfilePage } from '../profile/profile.page';
 
 @Component({
   selector: 'app-sidenav',
@@ -40,12 +42,15 @@ export class SidenavPage implements OnInit {
     }
   ];
 
-  profURL = 'https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y';
-  profName = 'Noufal';
+  profURL: string;
+  profName: string;
+  profEmail: string;
+
   constructor(
     private router: Router,
     private authService: AuthenticationService,
-    private loader: LoaderService
+    private loader: LoaderService,
+    public modalCtrl: ModalController
   ) {
     this.router.events.subscribe((event: RouterEvent) => {
       this.selectedPath = isNullOrUndefined(event.url) ? this.selectedPath : event.url;
@@ -53,6 +58,28 @@ export class SidenavPage implements OnInit {
   }
 
   ngOnInit() {
+    this.loadMenu();
+  }
+
+  loadMenu() {
+    this.authService.profileRef().on('value', snapshot => {
+      const snapVal = snapshot.val();
+      console.log('snapVal : ', snapVal);
+
+      this.profURL = this.authService.setProfileImage(snapVal.profilepic);
+      this.profName = isNullOrUndefined(snapVal.firstname) ? 'Hi Dude' : 'Hi ' + snapVal.firstname;
+      this.profEmail = snapVal.email;
+    });
+  }
+
+  async editProfile() {
+    const modal = await this.modalCtrl.create({
+      component: ProfilePage,
+      componentProps: {
+        edit: true
+      }
+    });
+    return await modal.present();
   }
 
   logoutUser() {
