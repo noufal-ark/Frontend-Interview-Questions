@@ -22,13 +22,14 @@ import { AuthenticationService } from './_service/authentication.service';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
+    BrowserModule,
     BrowserAnimationsModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   providers: [
     StatusBar,

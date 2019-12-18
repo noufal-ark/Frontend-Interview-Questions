@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+// import {MatExpansionModule} from '@angular/material/expansion';
 
 @Component({
   selector: 'app-html',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./html.page.scss'],
 })
 export class HtmlPage implements OnInit {
-
+  panelOpenState = false;
   constructor() { }
 
   ngOnInit() {

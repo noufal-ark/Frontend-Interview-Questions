@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { HtmlPageRoutingModule } from './html-routing.module';
 
 import { HtmlPage } from './html.page';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    HtmlPageRoutingModule
+    HtmlPageRoutingModule,
+    MatExpansionModule
   ],
   declarations: [HtmlPage]
 })
-export class HtmlPageModule {}
+export class HtmlPageModule { }
