@@ -12,6 +12,36 @@
         <ul *ngIf="objSub.type==='option'">
           <li *ngFor="let item of objSub.content.split('*')">{{item}}</li>
         </ul>
+        <ol *ngIf="objSub.type==='numberlist'">
+          <li *ngFor="let item of objSub.content.split('*')">{{item}}</li>
+        </ol>
+        <h6 *ngIf="objSub.type==='title'">{{objSub.content}}</h6>
+        <mat-card *ngIf="objSub.type==='code'">
+          <dl>
+            <dd *ngFor="let item of objSub.content.split('*')">{{item}}</dd>
+          </dl>
+        </mat-card>
+        <dl *ngIf="objSub.type==='list'">
+          <dd *ngFor="let item of objSub.content.split('*')">{{item}}</dd>
+        </dl>
+        <mat-card *ngIf="objSub.type==='table'">
+          <table class="table" *ngFor="let item of objSub.content.split('*')">
+            <thead>
+              <tr *ngIf="item.includes('<thead>')" class="thead">
+                <th scope="col" *ngFor="let head of item.split('<thead>')">{{head}}</th>
+              </tr>
+            </thead>
+            <tbody *ngIf="item.includes('<tbody>')">
+              <tr>
+                <td *ngFor="let body of item.split('<tbody>')">{{body}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </mat-card>
+
+        <mat-card *ngIf="objSub.type==='img'">
+          <ion-img [src]="objSub.content"></ion-img>
+        </mat-card>
       </div>
     </div>
   </mat-expansion-panel>

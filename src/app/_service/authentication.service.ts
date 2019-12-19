@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { auth } from 'firebase';
-import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { map } from 'rxjs/operators';
 import { AngularFireDatabase } from '@angular/fire/database';
@@ -30,7 +29,7 @@ export class AuthenticationService {
   constructor(
     private afAuth: AngularFireAuth,
     private afDB: AngularFireDatabase,
-    public navCtrl: NavController
+    public navCtrl: NavController,
   ) { }
   /* Sign up */
   signUpRegular(user) {
