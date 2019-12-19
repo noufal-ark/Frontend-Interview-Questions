@@ -7,15 +7,14 @@ import { IonicModule } from '@ionic/angular';
 import { HtmlPageRoutingModule } from './html-routing.module';
 
 import { HtmlPage } from './html.page';
-import { MatExpansionModule } from '@angular/material/expansion';
-
+import { QuesAnsModelPageModule } from 'src/app/_components/ques-ans-model/ques-ans-model.module';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
     HtmlPageRoutingModule,
-    MatExpansionModule
+    QuesAnsModelPageModule
   ],
   declarations: [HtmlPage]
 })

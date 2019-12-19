@@ -117,4 +117,18 @@ export class AuthenticationService {
   setProfileImage(url) {
     return isNullOrUndefined(url) ? this.profileURL : url;
   }
+
+  htmlRef() {
+    return this.afDB.database.ref('courses/html');
+  }
+
+
+  processHtmlRefintoArray(htmlRef) {
+    const htmlArray = [];
+    const lengthQA = Object.keys(htmlRef).length;
+    for (let i = 1; i === lengthQA; i++) {
+      htmlArray.push(htmlRef[`qa${1}`]);
+    }
+    return htmlArray;
+  }
 }

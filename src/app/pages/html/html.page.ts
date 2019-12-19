@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-// import {MatExpansionModule} from '@angular/material/expansion';
+import { AuthenticationService } from 'src/app/_service/authentication.service';
+import { LoaderService } from 'src/app/_service/loader.service';
 
 @Component({
   selector: 'app-html',
@@ -7,10 +8,28 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./html.page.scss'],
 })
 export class HtmlPage implements OnInit {
-  panelOpenState = false;
-  constructor() { }
+  htmlRefArray = [];
+
+  constructor(
+    private authService: AuthenticationService,
+    private loadService: LoaderService
+  ) { }
 
   ngOnInit() {
+    this.loadHtmlInterviewQA();
+  }
+
+  loadHtmlInterviewQA() {
+    this.loadService.present('Communicating with the server. Please wait...');
+    this.authService.htmlRef().once('value', snapshot => {
+      const htmlRefValue = snapshot.val();
+      console.log('htmlRefValue : ', htmlRefValue);
+      this.htmlRefArray = this.authService.processHtmlRefintoArray(htmlRefValue);
+      console.log('this.htmlRefArray : ', this.htmlRefArray);
+      if (this.loadService.isLoading) {
+        this.loadService.dismiss();
+      }
+    });
   }
 
 }

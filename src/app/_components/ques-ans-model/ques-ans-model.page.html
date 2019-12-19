@@ -1,0 +1,19 @@
+<mat-accordion>
+
+  <mat-expansion-panel *ngFor="let objItem of objectref">
+    <mat-expansion-panel-header [collapsedHeight]="objItem.q_length" [expandedHeight]="objItem.q_length">
+      <mat-panel-title>
+        <ion-label class="mat-header-ol"> {{objItem.q_number}} : </ion-label>{{objItem.question}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div *ngFor="let objSub of objItem.answer">
+      <div *ngIf="objSub">
+        <p *ngIf="objSub.type==='paragraph'">{{objSub.content}}</p>
+        <ul *ngIf="objSub.type==='option'">
+          <li *ngFor="let item of objSub.content.split('*')">{{item}}</li>
+        </ul>
+      </div>
+    </div>
+  </mat-expansion-panel>
+
+</mat-accordion>

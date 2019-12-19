@@ -29,7 +29,7 @@ import { AuthenticationService } from './_service/authentication.service';
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     StatusBar,
