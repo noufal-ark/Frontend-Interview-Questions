@@ -24,7 +24,7 @@ export class HtmlPage implements OnInit {
     this.authService.htmlRef().once('value', snapshot => {
       const htmlRefValue = snapshot.val();
       console.log('htmlRefValue : ', htmlRefValue);
-      this.htmlRefArray = this.authService.processHtmlRefintoArray(htmlRefValue);
+      this.htmlRefArray = this.authService.processRefintoArray(htmlRefValue);
       console.log('this.htmlRefArray : ', this.htmlRefArray);
       if (this.loadService.isLoading) {
         this.loadService.dismiss();

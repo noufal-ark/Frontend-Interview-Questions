@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { BootstrapPageRoutingModule } from './bootstrap-routing.module';
 
 import { BootstrapPage } from './bootstrap.page';
+import { QuesAnsModelPageModule } from 'src/app/_components/ques-ans-model/ques-ans-model.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    BootstrapPageRoutingModule
+    BootstrapPageRoutingModule,
+    QuesAnsModelPageModule
   ],
   declarations: [BootstrapPage]
 })

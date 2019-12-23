@@ -121,14 +121,29 @@ export class AuthenticationService {
   htmlRef() {
     return this.afDB.database.ref('courses/html');
   }
+  cssRef() {
+    return this.afDB.database.ref('courses/css');
+  }
+  javascriptRef() {
+    return this.afDB.database.ref('courses/javascript');
+  }
+  bootstrapRef() {
+    return this.afDB.database.ref('courses/bootstrap');
+  }
+  angularRef() {
+    return this.afDB.database.ref('courses/angular');
+  }
 
 
-  processHtmlRefintoArray(htmlRef) {
-    const htmlArray = [];
-    const lengthQA = Object.keys(htmlRef).length;
-    for (let i = 1; i === lengthQA; i++) {
-      htmlArray.push(htmlRef[`qa${1}`]);
+  processRefintoArray(Ref) {
+    const refArray = [];
+    if (isNullOrUndefined(Ref)) {
+      return refArray;
     }
-    return htmlArray;
+    const lengthQA = Object.keys(Ref).length;
+    for (let i = 1; i <= lengthQA; i++) {
+      refArray.push(Ref[`qa${i}`]);
+    }
+    return refArray;
   }
 }
