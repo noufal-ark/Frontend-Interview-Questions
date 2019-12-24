@@ -1,15 +1,28 @@
-.active-item{
-    border-left: 8px solid var(--ion-color-primary);
+.active-item {
+  border-left: 8px solid var(--ion-color-primary);
 }
-.email_label{
-    text-transform: lowercase;
-    font-style: italic;
-    color: #757070;
-    white-space: nowrap;
-}
-.title_label{
+
+.logo-section {
+  text-align: center;
+  img.logo-section__logo {
+    border-radius: 50%;
+    box-shadow: 2px 3px 4px 1px #e9e5e5;
+    width: 75px;
+    height: 75px;
+  }
+  .logo-section__title {
     text-transform: uppercase;
     text-shadow: 1px 1px;
     font-weight: bold;
-    color: #3a2b2b;
+    color: #5f4d4d;
+    padding: 5px;
+  }
+  .logo-section__subtitle {
+    text-transform: lowercase;
+    font-style: italic;
+    color: #9b8d8d;
+    white-space: nowrap;
+    font-size: small;
+    padding-bottom: 5px;
+  }
 }
