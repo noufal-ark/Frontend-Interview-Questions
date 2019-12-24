@@ -135,6 +135,11 @@ export class AuthenticationService {
   }
 
 
+  coursesRef() {
+    return this.afDB.database.ref('courses');
+  }
+
+
   processRefintoArray(Ref) {
     const refArray = [];
     if (isNullOrUndefined(Ref)) {
