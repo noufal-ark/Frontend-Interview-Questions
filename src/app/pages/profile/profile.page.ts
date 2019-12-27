@@ -20,6 +20,7 @@ export class ProfilePage implements OnInit {
   profileURL: string;
 
   @Input() editProf: string;
+  selectedFile: File;
 
   constructor(
     public modalCtrl: ModalController,
@@ -107,5 +108,16 @@ export class ProfilePage implements OnInit {
 
   async close() {
     await this.modalCtrl.dismiss();
+  }
+
+  onFileChanged(event) {
+    this.selectedFile = event.target.files[0];
+    console.log('selectedFile : ', this.selectedFile);
+  }
+
+  onUpload() {
+    // upload code goes here
+    console.log('onUpload() called');
+
   }
 }
