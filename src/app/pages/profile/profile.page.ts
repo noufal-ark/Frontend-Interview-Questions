@@ -4,6 +4,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Labels } from 'src/app/constants/labels';
 import { AuthenticationService } from 'src/app/_service/authentication.service';
 import { LoaderService } from 'src/app/_service/loader.service';
+import { Upload } from 'src/app/_models/upload';
+import { UploadService } from 'src/app/_service/upload.service';
 
 @Component({
   selector: 'app-profile',
@@ -19,6 +21,8 @@ export class ProfilePage implements OnInit {
   submitted = false;
   profileURL: string;
 
+  currentUpload: Upload;
+
   @Input() editProf: string;
   selectedFile: File;
 
@@ -27,7 +31,8 @@ export class ProfilePage implements OnInit {
     private authService: AuthenticationService,
     private formBuilder: FormBuilder,
     private loader: LoaderService,
-    private navParams: NavParams
+    private navParams: NavParams,
+    private uploadServ: UploadService
   ) {
     this.profileForm = this.formBuilder.group({
       profilepic: [''],
@@ -59,7 +64,7 @@ export class ProfilePage implements OnInit {
         this.profileForm.getRawValue();
       }
     } else {
-      this.authService.profileRef().once('value', snapshot => {
+      this.authService.profileRef().on('value', snapshot => {
         const snapVal = snapshot.val();
         console.log('snapVal : ', snapVal);
         this.profileURL = this.authService.setProfileImage(snapVal.profilepic);
@@ -113,11 +118,13 @@ export class ProfilePage implements OnInit {
   onFileChanged(event) {
     this.selectedFile = event.target.files[0];
     console.log('selectedFile : ', this.selectedFile);
+    this.onUpload();
   }
 
   onUpload() {
     // upload code goes here
-    console.log('onUpload() called');
+    this.currentUpload = new Upload(this.selectedFile);
+    this.uploadServ.pushUpload(this.currentUpload);
 
   }
 }
