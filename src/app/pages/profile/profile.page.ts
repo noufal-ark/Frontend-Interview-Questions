@@ -6,7 +6,7 @@ import { AuthenticationService } from 'src/app/_service/authentication.service';
 import { LoaderService } from 'src/app/_service/loader.service';
 import { Upload } from 'src/app/_models/upload';
 import { UploadService } from 'src/app/_service/upload.service';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -107,7 +107,17 @@ export class ProfilePage implements OnInit {
     console.log('profDetaile : ', profDetail);
 
     this.authService.profileRef().update(profDetail).finally(() => {
-      this.close();
+
+      Swal.fire({
+        title: 'Success',
+        text: 'Profile updated successfully!',
+        // type: 'error',
+        icon: 'success',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(() => {
+        this.close();
+      });
+
     });
   }
 
