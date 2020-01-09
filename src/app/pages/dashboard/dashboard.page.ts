@@ -9,6 +9,7 @@ import { ProfilePage } from '../profile/profile.page';
   styleUrls: ['./dashboard.page.scss'],
 })
 export class DashboardPage implements OnInit {
+  countArray: [];
 
   constructor(
     private authService: AuthenticationService,
@@ -19,13 +20,13 @@ export class DashboardPage implements OnInit {
   ngOnInit() {
     console.log('Hi iám dashboard');
     this.checkUSerExist();
+    this.loadTotalQuestionCount();
   }
 
   checkUSerExist() {
     console.log('called checkUSerExist');
 
     this.authService.profileRef()
-      // this.authService.profileRef().child('firstname')
       .once('value', snapshot => {
         console.log('checkUSerExist profile_updated key : ', snapshot.hasChild('profile_updated'));
         if (snapshot.hasChild('profile_updated')) {
@@ -48,8 +49,25 @@ export class DashboardPage implements OnInit {
   }
 
   navTo(path) {
-    console.log('path : ',path);
-    
-    this.navCtrl.navigateForward(['menu/' + path])
+    console.log('path : ', path);
+    this.navCtrl.navigateForward(['menu/' + path]);
+  }
+
+  loadTotalQuestionCount() {
+    this.authService.coursesRef().once('value', countSnap => {
+      const valSnap = countSnap.val();
+      this.countArray = [];
+      Object.keys(valSnap).forEach(element => {
+        const countCourses = Object.keys(valSnap[element]).length;
+        const nameCourses = element;
+        console.log(element, countCourses);
+        this.countArray[nameCourses] = countCourses;
+      });
+      console.log('this.countArray : ', this.countArray);
+
+      return this.countArray;
+    });
+
+
   }
 }

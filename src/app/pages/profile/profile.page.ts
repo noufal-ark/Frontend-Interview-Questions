@@ -4,7 +4,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Labels } from 'src/app/constants/labels';
 import { AuthenticationService } from 'src/app/_service/authentication.service';
 import { LoaderService } from 'src/app/_service/loader.service';
-
+import { Upload } from 'src/app/_models/upload';
+import { UploadService } from 'src/app/_service/upload.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.page.html',
@@ -19,14 +21,18 @@ export class ProfilePage implements OnInit {
   submitted = false;
   profileURL: string;
 
+  currentUpload: Upload;
+
   @Input() editProf: string;
+  selectedFile: File;
 
   constructor(
     public modalCtrl: ModalController,
     private authService: AuthenticationService,
     private formBuilder: FormBuilder,
     private loader: LoaderService,
-    private navParams: NavParams
+    private navParams: NavParams,
+    private uploadServ: UploadService
   ) {
     this.profileForm = this.formBuilder.group({
       profilepic: [''],
@@ -58,7 +64,7 @@ export class ProfilePage implements OnInit {
         this.profileForm.getRawValue();
       }
     } else {
-      this.authService.profileRef().once('value', snapshot => {
+      this.authService.profileRef().on('value', snapshot => {
         const snapVal = snapshot.val();
         console.log('snapVal : ', snapVal);
         this.profileURL = this.authService.setProfileImage(snapVal.profilepic);
@@ -101,11 +107,34 @@ export class ProfilePage implements OnInit {
     console.log('profDetaile : ', profDetail);
 
     this.authService.profileRef().update(profDetail).finally(() => {
-      this.close();
+
+      Swal.fire({
+        title: 'Success',
+        text: 'Profile updated successfully!',
+        // type: 'error',
+        icon: 'success',
+        confirmButtonText: 'Yes, delete it!'
+      }).then(() => {
+        this.close();
+      });
+
     });
   }
 
   async close() {
     await this.modalCtrl.dismiss();
+  }
+
+  onFileChanged(event) {
+    this.selectedFile = event.target.files[0];
+    console.log('selectedFile : ', this.selectedFile);
+    this.onUpload();
+  }
+
+  onUpload() {
+    // upload code goes here
+    this.currentUpload = new Upload(this.selectedFile);
+    this.uploadServ.pushUpload(this.currentUpload);
+
   }
 }

@@ -1,12 +1,14 @@
 <ion-split-pane contentId="content-menu">
   <ion-menu contentId="content-menu">
-    <ion-header>
-      <ion-toolbar class="ion-padding" (click)="editProfile()" >
-        <ion-avatar slot="start">
-          <img [src]="profURL">
-        </ion-avatar>
-        <ion-label  class="ion-padding title_label">{{profName}}</ion-label><br>
-        <ion-label  class="ion-padding email_label">{{profEmail}}</ion-label>
+    <ion-header class="side-menu-header">
+      <ion-toolbar color="#b8afbe" class="ion-padding" (click)="editProfile()">
+        <div class="logo-section">
+          <div class="logo-section__wrapper">
+            <img class="logo-section__logo" [src]="profURL" />
+            <div class="logo-section__title">{{profName}}</div>
+            <div class="logo-section__subtitle">{{profEmail}}</div>
+          </div>
+        </div>
       </ion-toolbar>
     </ion-header>
 

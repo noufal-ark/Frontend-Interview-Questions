@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content class="ion-padding" *ngIf="countArray">
 
   <ion-card button ion-item (click)="navTo('html')">
     <ion-card-header class="center-align">
@@ -16,6 +16,9 @@
       </ion-card-title>
       <ion-card-subtitle>HTML5</ion-card-subtitle>
     </ion-card-header>
+    <ion-card-content class="count-display html5-bg">
+      {{countArray['html']?countArray['html']:0}}
+    </ion-card-content>
   </ion-card>
 
   <ion-card button ion-item (click)="navTo('css')">
@@ -25,6 +28,9 @@
       </ion-card-title>
       <ion-card-subtitle>CSS3</ion-card-subtitle>
     </ion-card-header>
+    <ion-card-content class="count-display css3-bg">
+      {{countArray['css']?countArray['css']:0}}
+    </ion-card-content>
   </ion-card>
 
   <ion-card button ion-item (click)="navTo('javascript')">
@@ -34,6 +40,9 @@
       </ion-card-title>
       <ion-card-subtitle>JAVASCRIPT</ion-card-subtitle>
     </ion-card-header>
+    <ion-card-content class="count-display javascript-bg">
+      {{countArray['javascript']?countArray['javascript']:0}}
+    </ion-card-content>
   </ion-card>
 
   <ion-card button ion-item (click)="navTo('bootstrap')">
@@ -43,6 +52,9 @@
       </ion-card-title>
       <ion-card-subtitle>BOOTSTRAP</ion-card-subtitle>
     </ion-card-header>
+    <ion-card-content class="count-display brush-bg">
+      {{countArray['bootstrap']?countArray['bootstrap']:0}}
+    </ion-card-content>
   </ion-card>
 
   <ion-card button ion-item (click)="navTo('angular')">
@@ -52,6 +64,9 @@
       </ion-card-title>
       <ion-card-subtitle>ANGULAR</ion-card-subtitle>
     </ion-card-header>
+    <ion-card-content class="count-display angular-bg">
+      {{countArray['angular']?countArray['angular']:0}}
+    </ion-card-content>
   </ion-card>
 
 </ion-content>

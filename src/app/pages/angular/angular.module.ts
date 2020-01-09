@@ -7,13 +7,15 @@ import { IonicModule } from '@ionic/angular';
 import { AngularPageRoutingModule } from './angular-routing.module';
 
 import { AngularPage } from './angular.page';
+import { QuesAnsModelPageModule } from 'src/app/_components/ques-ans-model/ques-ans-model.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AngularPageRoutingModule
+    AngularPageRoutingModule,
+    QuesAnsModelPageModule
   ],
   declarations: [AngularPage]
 })

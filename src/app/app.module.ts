@@ -17,6 +17,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from 'src/environments/environment';
 import { LoaderService } from './_service/loader.service';
 import { AuthenticationService } from './_service/authentication.service';
+import { UploadService } from './_service/upload.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -37,6 +38,7 @@ import { AuthenticationService } from './_service/authentication.service';
     AuthGuardService,
     AuthenticationService,
     LoaderService,
+    UploadService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

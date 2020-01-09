@@ -12,8 +12,18 @@
 
     <div class="avatar-img">
       <div class="image-center">
-        <ion-img name="profilepic" [src]="profileURL"></ion-img>
+        <input (change)="onFileChanged($event)" #fileInput type="file" class="image-upload" accept="image/*"
+          style="display: none" accept=".png,.jpg">
+        <ion-img name="profilepic" [src]="profileURL" (click)="fileInput.click()"></ion-img>
       </div>
+    </div>
+    <!-- <progress max="100" [value]="(uploadProgress | async)"></progress>
+    <mat-progress-bar mode="determinate"  [value]="(uploadProgress | async)"></mat-progress-bar> -->
+    <div *ngIf="currentUpload">
+      <div class="progress">
+        <div class="progress-bar progress-bar-animated" [ngStyle]="{ 'width': currentUpload?.progress + '%' }"></div>
+      </div>
+      Progress: {{currentUpload?.name}} | {{currentUpload?.progress}}% Complete
     </div>
 
     <ion-row>

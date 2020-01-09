@@ -1,28 +1,49 @@
-.icon-angular{
-    ion-icon{
-        color:#f16822;
-    }
+.icon-angular {
+  ion-icon {
+    color: #f16822;
+  }
 }
-.icon-html5{
-    ion-icon{
-        color:#ca4807;
-    }
+.icon-html5 {
+  ion-icon {
+    color: #ca4807;
+  }
 }
-.icon-css3{
-    ion-icon{
-        color:#370ab4;
-    }
+.icon-css3 {
+  ion-icon {
+    color: #370ab4;
+  }
 }
-.icon-javascript{
-    ion-icon{
-        color:#f1d247;
-    }
+.icon-javascript {
+  ion-icon {
+    color: #f1d247;
+  }
 }
-.icon-brush{
-    ion-icon{
-        color:#5c088d;
-    }
+.icon-brush {
+  ion-icon {
+    color: #5c088d;
+  }
 }
-.center-align{
-    text-align: center;
+.center-align {
+  text-align: center;
+}
+.count-display {
+  text-align: center;
+  color: white;
+  font-size: larger;
+  font-weight: bold;
+}
+.angular-bg{
+    background: #f16822;
+}
+.html5-bg{
+    background: #ca4807;
+}
+.css3-bg{
+    background: #370ab4;
+}
+.javascript-bg{
+    background: #f1d247;
+}
+.brush-bg{
+    background: #5c088d;
 }
